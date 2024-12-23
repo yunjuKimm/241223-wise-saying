@@ -5,7 +5,6 @@ public class Main {
     public static void main(String[] args) {
         App app = new App();
         app.run();
-
     }
 }
 
@@ -48,6 +47,8 @@ class App {
                     Saying saying = sayings.get(i); // 인덱스를 이용해 직접 접근
                     System.out.println(saying.getNo() + " / " + saying.getAuthor() + " / " + saying.getText());
                 }
+            } else if () {
+
             }
         }
     }
