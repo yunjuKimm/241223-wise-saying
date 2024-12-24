@@ -10,9 +10,9 @@ public class Main {
 class App {
 
     // 클래스에서 함수들이 공유해야 하는 변수 -> 인스턴스 변수
-    int lastId = 0; // 명언 번호
-    int wiseSayingSize = 0;
-    WiseSaying[] wiseSayingList = new WiseSaying[3]; // 명언들을 저장할 리스트
+    private int lastId = 0; // 명언 번호
+    private int wiseSayingSize = 0;
+    private final WiseSaying[] wiseSayingList = new WiseSaying[3]; // 명언들을 저장할 리스트
 
     public void run() {
 
@@ -51,7 +51,7 @@ class App {
                 //등록된 명언 목록 출력
                 for (int i = 0; i < wiseSayingSize; i++) {
                     WiseSaying wiseSaying = wiseSayingList[i];
-                    System.out.println("%d / %s / %s".formatted(wiseSaying.id, wiseSaying.author, wiseSaying.content));
+                    System.out.println("%d / %s / %s".formatted(wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent()));
                 }
 
             }
@@ -62,7 +62,6 @@ class App {
 
     // 함수 이름 지을 땐 동사
     public void add(String content, String author) {
-
         WiseSaying wiseSaying = new WiseSaying(++lastId, content, author); // 명언 저장 객체 생성
         wiseSayingList[wiseSayingSize++] = wiseSaying;
     }
@@ -72,9 +71,9 @@ class App {
 
 // 명언 저장 클래스
 class WiseSaying {
-    int id;
-    String author;
-    String content;
+    private int id;
+    private String author;
+    private String content;
 
     public WiseSaying(int id, String content, String author) {
         this.id = id;
