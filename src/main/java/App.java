@@ -40,6 +40,11 @@ public class App {
                 } else {
                     System.out.println("%d번 명언은 존재하지 않습니다.".formatted(id));
                 }
+            } else if (command.startsWith("수정?id=")) {
+                String strId = command.substring(6);
+                int id = Integer.parseInt(strId);
+
+                updateWiseSaying(id);
             }
         }
     }
@@ -48,6 +53,28 @@ public class App {
     public void add(String content, String author) {
         WiseSaying wiseSaying = new WiseSaying(++lastId, content, author); // 명언 저장 객체 생성
         wiseSayingList.add(wiseSaying);
+    }
+
+    private WiseSaying findWiseSaying(int targetId) {
+        for (WiseSaying wiseSaying : wiseSayingList) {
+            if (wiseSaying.getId() == targetId) {
+                return wiseSaying;
+            }
+        }
+
+        return null;  // 자바에서 null은 객체가 없음 의미.
+    }
+
+    private void updateWiseSaying(int targetId) {
+        WiseSaying wiseSaying = findWiseSaying(targetId);
+        if (wiseSaying == null) {
+            System.out.println("%d번 명언은 존재하지 않습니다.".formatted(targetId));
+            return;
+        }
+
+        // 수정 기능
+
+
     }
 
     private boolean deleteWiseSaying(int targetId) {
@@ -70,7 +97,7 @@ public class App {
         String author = scanner.nextLine(); // 작가 입력
 
         add(content, author);  // 1. 함수로 분리 -> 코드가 줄어든다. 가독성이 올라간다. 2. 재활용성(중복 제거)
-        System.out.println("%d번 명언이 등록되었습니다. %s".formatted(lastId));
+        System.out.println("%d번 명언이 등록되었습니다.".formatted(lastId));
     }
 
     private void printWiseSayingList() {
