@@ -1,10 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
     // 클래스에서 함수들이 공유해야 하는 변수 -> 인스턴스 변수
     private int lastId = 0; // 명언 번호
-    private int wiseSayingSize = 0;
-    private final WiseSaying[] wiseSayingList = new WiseSaying[3]; // 명언들을 저장할 리스트
+    private final ArrayList<WiseSaying> wiseSayingList = new ArrayList<>(); // 명언들을 저장할 리스트
 
     Scanner scanner = new Scanner(System.in);
 
@@ -12,7 +12,7 @@ public class App {
 
         // 테스트 명언 데이터1
         add("꿈을 지녀라. 그러면 어려운 현실을 이길 수 있다.", "월트 디즈니");
-
+        add("현재를 사랑하라", "작자 미상");
 
         System.out.println("== 명언 앱 ==");
         while (true) {
@@ -29,9 +29,12 @@ public class App {
             } else if (command.equals("목록")) {
                 printWiseSayingList();
 
-            } else {
-                System.out.println("알 수 없는 명령어입니다.");
+            } else if (command.startsWith("삭제?id=")) {
+                String strId = command.substring(6);
+                int id = Integer.parseInt(strId);
 
+                deleteWiseSaying(id);
+                System.out.println("%d번 명언이 삭제되었습니다.".formatted(id));
             }
         }
     }
@@ -39,7 +42,21 @@ public class App {
     // 함수 이름 지을 땐 동사
     public void add(String content, String author) {
         WiseSaying wiseSaying = new WiseSaying(++lastId, content, author); // 명언 저장 객체 생성
-        wiseSayingList[wiseSayingSize++] = wiseSaying;
+        wiseSayingList.add(wiseSaying);
+    }
+
+    private void deleteWiseSaying(int targetId) {
+        System.out.println("삭제");
+//        wiseSayingList.remove(1); // 1번째 명언 삭제 -> 명언의 번호와 배열의 index가 아무 상관이 없다.
+
+        // 1. 아이디가 1인 명언의 index를 얻는다.
+        // 2. 아이디가 1인 명언의 값 자체를 얻는다.
+        for (WiseSaying wiseSaying : wiseSayingList) {
+            if (wiseSaying.getId() == targetId) {
+                wiseSayingList.remove(wiseSaying);
+                break;
+            }
+        }
     }
 
     private void writeWiseSaying() {
@@ -57,8 +74,7 @@ public class App {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
 
-        for (int i = 0; i < wiseSayingSize; i++) {
-            WiseSaying wiseSaying = wiseSayingList[i];
+        for (WiseSaying wiseSaying : wiseSayingList.reversed()) {
             System.out.println("%d / %s / %s".formatted(wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent()));
         }
 
