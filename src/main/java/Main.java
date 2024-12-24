@@ -19,11 +19,7 @@ class App {
         Scanner scanner = new Scanner(System.in);
 
         // 테스트 명언 데이터1
-        WiseSaying wiseSayingTest = new WiseSaying();
-        wiseSayingTest.id = ++lastId;
-        wiseSayingTest.content = "꿈을 지녀라. 그러면 어려운 현실을 이길 수 있다.";
-        wiseSayingTest.author = "월트 디즈니";
-        wiseSayingList[wiseSayingSize++] = wiseSayingTest;
+        add("꿈을 지녀라. 그러면 어려운 현실을 이길 수 있다.", "월트 디즈니");
 
 
         System.out.println("== 명언 앱 ==");
@@ -67,12 +63,7 @@ class App {
     // 함수 이름 지을 땐 동사
     public void add(String content, String author) {
 
-        WiseSaying wiseSaying = new WiseSaying(); // 명언 저장 객체 생성
-
-        wiseSaying.id = ++lastId;
-        wiseSaying.content = content;
-        wiseSaying.author = author;
-
+        WiseSaying wiseSaying = new WiseSaying(++lastId, content, author); // 명언 저장 객체 생성
         wiseSayingList[wiseSayingSize++] = wiseSaying;
     }
 
@@ -85,11 +76,11 @@ class WiseSaying {
     String author;
     String content;
 
-//    public WiseSaying(int no, String author, String content) {
-//        this.id = no;
-//        this.author = author;
-//        this.content = content;
-//    }
+    public WiseSaying(int id, String content, String author) {
+        this.id = id;
+        this.author = author;
+        this.content = content;
+    }
 
     public int getId() {
         return id;
